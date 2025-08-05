@@ -1,0 +1,547 @@
+<?php
+session_start();
+include "config.php"; // koneksi database
+    $riwayat_pesanan = [];
+    if (isset($_SESSION['user_id'])) {
+        $query_pesanan = mysqli_query($conn, "
+            SELECT * FROM pesanan 
+            WHERE id_user = {$_SESSION['user_id']}
+            ORDER BY created_at DESC
+        ");
+        while ($row = mysqli_fetch_assoc($query_pesanan)) {
+            $riwayat_pesanan[] = $row;
+        }
+    }
+?>
+
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Riwayat Pemesanan - CodeMart</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Variabel warna */
+:root {
+  --primary: #007BBD;     /* Biru utama (dari monitor) */
+  --secondary: #A2F4FA;   /* Biru muda (background kanan logo) */
+  --accent: #FDC400;      /* Kuning emas (dari sayap) */
+  --dark: #222222;        /* Hitam gelap (untuk teks atau border) */
+  --light: #FFFFFF;       /* Putih (background bersih) */
+  --text: #333333;        /* Abu tua untuk teks utama */
+  --shadow: 0 5px 15px rgba(0, 123, 189, 0.1); /* Bayangan lembut biru */
+}
+    
+    /* Reset default */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    body {
+      background-color: var(--light);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 8%;
+      background: var(--primary);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--dark);
+      letter-spacing: 1px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .menu {
+      display: flex;
+      list-style: none;
+    }
+    
+    .menu li {
+      margin: 0 0.8rem;
+    }
+    
+    .menu a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+      transition: var(--transition);
+      position: relative;
+    }
+    
+    .menu a:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    
+    .menu .active {
+      background: var(--secondary);
+      color: var(--accent);
+      font-weight: 600;
+    }
+    
+    .menu a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: var(--accent);
+      transition: var(--transition);
+    }
+    
+    .menu a:hover::after {
+      width: 100%;
+    }
+    
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      color: var(--dark);
+      font-size: 1.5rem;
+    }
+    
+    /* Background gerak section */
+    .background-image {
+     background: linear-gradient(
+    rgba(0, 73, 118, 0.45),   /* primary */
+    rgba(162, 244, 250, 0.34) /* secondary */
+  ),
+  url("https://smkdp2jkt.sch.id/wp-content/uploads/2025/02/SLIDER1-940x510.jpg");
+      background-size: cover;
+      background-position: center;
+      height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .container-h1 {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .logoa {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 5px solid var(--secondary);
+      box-shadow: var(--shadow);
+      margin-bottom: 1.5rem;
+      animation: float 4s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+      100% {
+        transform: translateY(0px);
+      }
+    }
+    
+    .h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 4px rgba(255, 254, 254, 0.3);
+      animation: fadeInDown 1s ease;
+    }
+    
+    .h2 {
+      font-size: 1.8rem;
+      font-weight: 400;
+      max-width: 600px;
+      margin: 0 auto;
+      animation: fadeInUp 1s ease;
+    }
+    
+    /* Hero section */
+    .hero {
+      padding: 3rem 0;
+      text-align: center;
+      background: var(--secondary);
+      position: relative;
+    }
+    
+    .hero p {
+      font-size: 2rem;
+      color: var(--accent);
+      font-weight: 700;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    
+    /* Products section */
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 4rem 8%;
+      background: var(--light);
+    }
+    
+    .product {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .product:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(139, 69, 19, 0.2);
+    }
+    
+    .product img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+    
+    .product:hover img {
+      transform: scale(1.1);
+    }
+    
+    .product h3 {
+      padding: 1rem 1rem 0.5rem;
+      color: var(--dark);
+      font-size: 1.3rem;
+    }
+    
+    .product .price {
+      padding: 0 1rem;
+      color: var(--accent);
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin: 0.5rem 0;
+    }
+    
+    .product p {
+      padding: 0 1rem;
+      color: #777;
+      flex-grow: 1;
+    }
+    
+    .product button {
+      background: var(--primary);
+      color: var(--dark);
+      border: none;
+      padding: 0.8rem;
+      margin: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: var(--transition);
+      border: 2px solid var(--primary);
+    }
+    
+    .product button:hover {
+      background: transparent;
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+    
+    .product-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: var(--accent);
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+    
+    /* Animasi */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Responsif */
+    @media (max-width: 992px) {
+      .products {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      }
+      
+      .navbar {
+        padding: 1rem 5%;
+      }
+      
+      .h1 {
+        font-size: 2.8rem;
+      }
+      
+      .h2 {
+        font-size: 1.5rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .hamburger {
+        display: block;
+      }
+      
+      .menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--primary);
+        flex-direction: column;
+        padding: 1rem 0;
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+        transition: var(--transition);
+      }
+      
+      .menu.active {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      }
+      
+      .menu li {
+        margin: 0.5rem 0;
+        text-align: center;
+      }
+      
+      .background-image {
+        height: 70vh;
+      }
+      
+      .h1 {
+        font-size: 2.2rem;
+      }
+      
+      .h2 {
+        font-size: 1.3rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .products {
+        grid-template-columns: 1fr;
+        max-width: 350px;
+        margin: 0 auto;
+      }
+      
+      .h1 {
+        font-size: 2rem;
+      }
+      
+      .hero p {
+        font-size: 1.5rem;
+      }
+    }
+
+h2 {
+  font-family: monospace;
+  font-size: 28px;
+  color: white  ;
+}
+
+.typed-text {
+  font-weight: bold;
+  color: blue;
+}
+
+.cursor {
+  display: inline-block;
+  background-color: transparent;
+  color: blue;
+  animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+
+        .riwayat-pesanan {
+      max-width: 1000px;
+      margin: 40px auto;
+      background: var(--secondary);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+
+    .riwayat-pesanan h2 {
+      color: var(--primary);
+      font-size: 2rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .riwayat-pesanan table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .riwayat-pesanan th,
+    .riwayat-pesanan td {
+      padding: 12px 16px;
+      border-bottom: 1px solid #ccc;
+      text-align: center;
+    }
+
+    .riwayat-pesanan th {
+      background-color: var(--primary);
+      color: white;
+      font-weight: bold;
+    }
+
+    .riwayat-pesanan td {
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .riwayat-pesanan a {
+      background-color: var(--accent);
+      color: white;
+      padding: 6px 12px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .riwayat-pesanan a:hover {
+      background-color: var(--dark);
+    }
+
+    @media (max-width: 600px) {
+      .riwayat-pesanan th,
+      .riwayat-pesanan td {
+        padding: 8px 10px;
+        font-size: 0.85rem;
+      }
+
+      .riwayat-pesanan h2 {
+        font-size: 1.5rem;
+      }
+    }
+
+    .back-link {
+  display: inline-block;
+  margin: 20px;
+  padding: 10px 16px;
+  background-color: var(--accent);  /* warna kuning dari tema */
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.back-link:hover {
+  background-color: var(--dark); /* warna coklat tua dari tema */
+  transform: translateY(-2px);
+}
+  </style>
+</head>
+<body>
+<?php include 'partials/header.php'; ?>
+
+<?php if (!empty($riwayat_pesanan)): ?>
+  <div class="riwayat-pesanan">
+    <h2>Riwayat Pemesanan</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Tanggal</th>
+          <th>Total</th>
+          <th>Status</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($riwayat_pesanan as $pesanan): ?>
+          <tr>
+            <td><?= $pesanan['id_pesanan']; ?></td>
+            <td><?= date('d/m/Y H:i', strtotime($pesanan['created_at'])); ?></td>
+            <td>Rp <?= number_format($pesanan['total'], 0, ',', '.'); ?></td>
+            <td><?= ucfirst($pesanan['status']); ?></td>
+            <td>
+              <a href="detail_pesanan_user.php?id=<?= $pesanan['id_pesanan']; ?>">Detail</a>
+            </td>
+          </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+  </div>
+<?php else: ?>
+  <div class="riwayat-pesanan">
+    <h2>Belum Ada Riwayat Pemesanan</h2>
+    <p style="text-align:center;">Silakan mulai belanja di <a href="index.php">CodeMart</a>.</p>
+  </div>
+<?php endif; ?>
+    </div>
+        <footer>
+      <?php include 'partials/footer.php'; ?>
+    </footer>
+</body>
+</html>
