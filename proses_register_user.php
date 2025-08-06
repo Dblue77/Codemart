@@ -6,7 +6,7 @@ $pesan = "";
 $link = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
+    $username = htmlspecialchars($_POST['username']);
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $nama_lengkap = $_POST['nama_lengkap'];
     $no_telepon = $_POST['no_telepon'];
@@ -33,10 +33,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>Hasil Registrasi</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
         :root {
             --primary: #004976;
@@ -74,7 +75,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         .message-box h2 {
-            color: <?php echo $status == 'sukses' ? 'var(--success)' : 'var(--error)'; ?>;
+            color:
+                <?php echo $status == 'sukses' ? 'var(--success)' : 'var(--error)'; ?>
+            ;
             margin-bottom: 20px;
         }
 
@@ -99,19 +102,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         @keyframes fadeIn {
-            from {opacity: 0; transform: scale(0.95);}
-            to {opacity: 1; transform: scale(1);}
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="message-box">
         <h2><?php echo $status == 'sukses' ? 'Berhasil!' : 'Gagal!'; ?></h2>
         <p><?php echo $pesan; ?></p>
-        <?php if ($link) echo $link; ?>
+        <?php if ($link)
+            echo $link; ?>
         <div style="margin-top: 10px;">
             <a href="register_user.php">Kembali ke Form</a>
         </div>
     </div>
 </body>
+
 </html>

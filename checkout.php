@@ -30,6 +30,7 @@ while ($row = mysqli_fetch_assoc($cart_query)) {
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>Checkout - CodeMart</title>
@@ -57,11 +58,14 @@ while ($row = mysqli_fetch_assoc($cart_query)) {
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .order-summary, .form-group, .bank-info {
+        .order-summary,
+        .form-group,
+        .bank-info {
             margin-bottom: 20px;
         }
 
-        .order-summary p, .bank-info p {
+        .order-summary p,
+        .bank-info p {
             margin: 8px 0;
         }
 
@@ -71,7 +75,9 @@ while ($row = mysqli_fetch_assoc($cart_query)) {
             font-weight: 600;
         }
 
-        input, textarea, select {
+        input,
+        textarea,
+        select {
             width: 100%;
             padding: 10px;
             border: 1px solid #bbdefb;
@@ -101,7 +107,8 @@ while ($row = mysqli_fetch_assoc($cart_query)) {
             margin-top: 10px;
         }
 
-        .btn-submit:hover, .btn-back:hover {
+        .btn-submit:hover,
+        .btn-back:hover {
             background-color: #1565c0;
         }
 
@@ -133,12 +140,13 @@ while ($row = mysqli_fetch_assoc($cart_query)) {
         }
     </style>
 </head>
+
 <body>
 
     <div class="container">
         <h2>Checkout</h2>
 
-        
+
 
         <!-- Ringkasan Pesanan -->
         <div class="order-summary">
@@ -156,12 +164,14 @@ while ($row = mysqli_fetch_assoc($cart_query)) {
         <form action="proses_checkout.php" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label>Nama Lengkap</label>
-                <input type="text" name="nama_lengkap" value="<?= htmlspecialchars($user_data['nama_lengkap'] ?? '') ?>" required>
+                <input type="text" name="nama_lengkap" value="<?= htmlspecialchars($user_data['nama_lengkap'] ?? '') ?>"
+                    required>
             </div>
 
             <div class="form-group">
                 <label>Nomor Telepon</label>
-                <input type="tel" name="no_telepon" value="<?= htmlspecialchars($user_data['no_telepon'] ?? '') ?>" required>
+                <input type="tel" name="no_telepon" value="<?= htmlspecialchars($user_data['no_telepon'] ?? '') ?>"
+                    required>
             </div>
 
             <div class="form-group">
@@ -189,8 +199,9 @@ while ($row = mysqli_fetch_assoc($cart_query)) {
                 <input type="file" name="bukti_transfer" accept="image/jpeg, image/png" required>
             </div>
             <button type="submit" class="btn-submit">Konfirmasi Pesanan</button>
-                        <a href="index.php" class="btn-back">&laquo; Kembali ke Beranda</a>
+            <a href="index.php" class="btn-back">&laquo; Kembali ke Beranda</a>
         </form>
     </div>
 </body>
+
 </html>

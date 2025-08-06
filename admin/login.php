@@ -74,7 +74,6 @@
     .login-container a:hover {
       text-decoration: underline;
     }
-
   </style>
 </head>
 

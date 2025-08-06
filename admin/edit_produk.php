@@ -22,6 +22,7 @@ if (!$data) {
 
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -44,7 +45,7 @@ if (!$data) {
             padding: 30px 25px;
             margin: auto;
             border-radius: 10px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
 
         h2 {
@@ -134,44 +135,46 @@ if (!$data) {
         }
     </style>
 </head>
+
 <body>
 
-<div class="container">
-    <a href="index.php" class="back-btn">← Kembali</a>
-    <h2>Edit Produk</h2>
+    <div class="container">
+        <a href="index.php" class="back-btn">← Kembali</a>
+        <h2>Edit Produk</h2>
 
-    <form action="proses_edit.php" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="id_produk" value="<?php echo $data['id_produk']; ?>">
-        <input type="hidden" name="gambar_lama" value="<?php echo $data['gambar']; ?>">
+        <form action="proses_edit.php" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="id_produk" value="<?php echo $data['id_produk']; ?>">
+            <input type="hidden" name="gambar_lama" value="<?php echo $data['gambar']; ?>">
 
-        <label>Nama Produk</label>
-        <input type="text" name="nama_produk" value="<?php echo $data['nama_produk']; ?>" required>
+            <label>Nama Produk</label>
+            <input type="text" name="nama_produk" value="<?php echo $data['nama_produk']; ?>" required>
 
-        <label>Kategori</label>
-        <select name="id_kategori" required>
-            <?php
-            while ($row = $resultKategori->fetch_assoc()) {
-                $selected = ($row['id_kategori'] == $data['id_kategori']) ? "selected" : "";
-                echo "<option value='" . $row['id_kategori'] . "' $selected>" . $row['nama_kategori'] . "</option>";
-            }
-            ?>
-        </select>
+            <label>Kategori</label>
+            <select name="id_kategori" required>
+                <?php
+                while ($row = $resultKategori->fetch_assoc()) {
+                    $selected = ($row['id_kategori'] == $data['id_kategori']) ? "selected" : "";
+                    echo "<option value='" . $row['id_kategori'] . "' $selected>" . $row['nama_kategori'] . "</option>";
+                }
+                ?>
+            </select>
 
-        <label>Harga</label>
-        <input type="number" name="harga" value="<?php echo $data['harga']; ?>" required>
+            <label>Harga</label>
+            <input type="number" name="harga" value="<?php echo $data['harga']; ?>" required>
 
-        <label>Deskripsi</label>
-        <textarea name="deskripsi" rows="4"><?php echo $data['deskripsi']; ?></textarea>
+            <label>Deskripsi</label>
+            <textarea name="deskripsi" rows="4"><?php echo $data['deskripsi']; ?></textarea>
 
-        <label>Gambar Saat Ini</label><br>
-        <img src="uploads/<?php echo $data['gambar']; ?>" width="100"><br>
+            <label>Gambar Saat Ini</label><br>
+            <img src="uploads/<?php echo $data['gambar']; ?>" width="100"><br>
 
-        <label>Gambar Baru</label>
-        <input type="file" name="gambar">
+            <label>Gambar Baru</label>
+            <input type="file" name="gambar">
 
-        <button type="submit" class="btn">Simpan Perubahan</button>
-    </form>
-</div>
+            <button type="submit" class="btn">Simpan Perubahan</button>
+        </form>
+    </div>
 
 </body>
+
 </html>

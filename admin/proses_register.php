@@ -2,25 +2,26 @@
 include "../config.php";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+  $username = htmlspecialchars($_POST['username']);
+  $password = $_POST['password'];
 
-    // Hash password
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+  // Hash password
+  $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    // Simpan ke database
-    $query = "INSERT INTO admin (username, password) VALUES ('$username', '$hashedPassword')";
+  // Simpan ke database
+  $query = "INSERT INTO admin (username, password) VALUES ('$username', '$hashedPassword')";
 
-    if (mysqli_query($conn, $query)) {
-        $message = "Register berhasil. <a href='login.php'>Silahkan Login</a>";
-    } else {
-        $message = "Gagal register: " . mysqli_error($conn);
-    }
+  if (mysqli_query($conn, $query)) {
+    $message = "Register berhasil. <a href='login.php'>Silahkan Login</a>";
+  } else {
+    $message = "Gagal register: " . mysqli_error($conn);
+  }
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -106,11 +107,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       color: var(--accent);
       text-decoration: none;
     }
+
     a:hover {
       text-decoration: underline;
     }
   </style>
 </head>
+
 <body>
   <div class="register-container">
     <?php if (!empty($message)): ?>
@@ -118,4 +121,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php endif; ?>
   </div>
 </body>
+
 </html>

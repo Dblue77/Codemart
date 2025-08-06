@@ -7,8 +7,8 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-$id_produk = (int)$_POST['id_produk'];
-$id_user = (int)$_SESSION['user_id'];
+$id_produk = (int) $_POST['id_produk'];
+$id_user = (int) $_SESSION['user_id'];
 
 // Cek apakah produk sudah ada di keranjang
 $check = mysqli_query($conn, "SELECT * FROM keranjang WHERE id_user = $id_user AND id_produk = $id_produk");

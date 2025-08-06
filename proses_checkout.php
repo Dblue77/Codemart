@@ -1,4 +1,4 @@
-        <?php
+<?php
 session_start();
 include "config.php";
 $_SESSION['nama_lengkap'] = $_POST['nama_lengkap'];

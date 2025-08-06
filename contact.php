@@ -61,7 +61,8 @@
             background-color: #dfe4ea;
         }
 
-        html, body {
+        html,
+        body {
             height: 100%;
             margin: 0;
             padding: 0;
@@ -86,7 +87,8 @@
 
     <main>
         <h2>Hubungi Flowly Book</h2>
-        <p>Jika kamu memiliki pertanyaan, kritik, atau saran, jangan ragu untuk menghubungi kami. Kami siap membantu kamu dengan sepenuh hati!</p>
+        <p>Jika kamu memiliki pertanyaan, kritik, atau saran, jangan ragu untuk menghubungi kami. Kami siap membantu
+            kamu dengan sepenuh hati!</p>
 
         <p><strong>Email:</strong> support@flowlybook.com</p>
         <p><strong>Telepon:</strong> +62 812-1264-3792</p>

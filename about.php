@@ -33,7 +33,9 @@ include "config.php"; // koneksi database
             margin: auto;
         }
 
-        h1, h2, h3 {
+        h1,
+        h2,
+        h3 {
             color: #004080;
         }
 
@@ -48,10 +50,12 @@ include "config.php"; // koneksi database
 </head>
 
 <body>
-    <?php include 'partials/header.php'; ?> 
+    <?php include 'partials/header.php'; ?>
     <main>
         <h2>Selamat datang di <strong>CodeMart</strong>!</h2>
-        <p><strong>CodeMart</strong> adalah penyedia jasa digital kreatif yang berfokus pada solusi desain dan teknologi. Kami hadir untuk membantu Anda mewujudkan ide-ide kreatif menjadi kenyataan digital yang profesional dan menarik.</p>
+        <p><strong>CodeMart</strong> adalah penyedia jasa digital kreatif yang berfokus pada solusi desain dan
+            teknologi. Kami hadir untuk membantu Anda mewujudkan ide-ide kreatif menjadi kenyataan digital yang
+            profesional dan menarik.</p>
 
         <h3>Layanan Kami</h3>
         <ul>
@@ -63,7 +67,8 @@ include "config.php"; // koneksi database
         </ul>
 
         <h3>Misi Kami</h3>
-        <p>Kami berkomitmen untuk memberikan layanan yang cepat, berkualitas, dan sesuai dengan kebutuhan Anda. CodeMart percaya bahwa desain yang baik dan website yang optimal adalah kunci sukses di era digital.</p>
+        <p>Kami berkomitmen untuk memberikan layanan yang cepat, berkualitas, dan sesuai dengan kebutuhan Anda. CodeMart
+            percaya bahwa desain yang baik dan website yang optimal adalah kunci sukses di era digital.</p>
 
         <h3>Mengapa Memilih CodeMart?</h3>
         <ul>
@@ -73,7 +78,8 @@ include "config.php"; // koneksi database
             <li>🛠️ Tim kreatif yang berpengalaman</li>
         </ul>
 
-        <p>Kami siap menjadi partner digital terbaik Anda. Hubungi kami sekarang dan mulai wujudkan proyek impian Anda bersama CodeMart!</p>
+        <p>Kami siap menjadi partner digital terbaik Anda. Hubungi kami sekarang dan mulai wujudkan proyek impian Anda
+            bersama CodeMart!</p>
     </main>
 
     <footer>

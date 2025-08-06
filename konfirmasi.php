@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id']) || !isset($_GET['id_pesanan'])) {
     exit;
 }
 
-$id_pesanan = (int)$_GET['id_pesanan'];
+$id_pesanan = (int) $_GET['id_pesanan'];
 
 // Ambil data pesanan
 $query = mysqli_query($conn, "
@@ -44,6 +44,7 @@ $link_wa = "https://wa.me/{$no_wa_admin}?text={$pesan_encoded}";
 
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>Pesanan Berhasil</title>
@@ -98,36 +99,38 @@ $link_wa = "https://wa.me/{$no_wa_admin}?text={$pesan_encoded}";
         }
     </style>
 </head>
+
 <body>
 
-<div class="container">
-    <h2>Pesanan Anda Berhasil!</h2>
+    <div class="container">
+        <h2>Pesanan Anda Berhasil!</h2>
 
-    <p><strong>No. Order:</strong> <?= $pesanan['id_pesanan']; ?></p>
-    <p><strong>Order Name:</strong> <?= htmlspecialchars($nama_user); ?></p>
-    <p><strong>Total Pembayaran:</strong> Rp <?= number_format($pesanan['total'], 0, ',', '.'); ?></p>
-    <p><strong>Metode Pembayaran:</strong> <?= strtoupper($pesanan['metode_pembayaran']); ?></p>
+        <p><strong>No. Order:</strong> <?= $pesanan['id_pesanan']; ?></p>
+        <p><strong>Order Name:</strong> <?= htmlspecialchars($nama_user); ?></p>
+        <p><strong>Total Pembayaran:</strong> Rp <?= number_format($pesanan['total'], 0, ',', '.'); ?></p>
+        <p><strong>Metode Pembayaran:</strong> <?= strtoupper($pesanan['metode_pembayaran']); ?></p>
 
-    <?php if ($pesanan['metode_pembayaran'] == 'transfer_bank'): ?>
-        <div class="payment-box">
-            <h3>Instruksi Transfer</h3>
-            <p><strong>Bank Tujuan:</strong> BANK RTP (825089210187)</p>
-            <p><strong>Jumlah:</strong> Rp <?= number_format($pesanan['total'], 0, ',', '.'); ?></p>
-            <p><strong>Kode Referensi:</strong> ORDER-<?= $pesanan['id_pesanan']; ?></p>
-        </div>
-    <?php endif; ?>
+        <?php if ($pesanan['metode_pembayaran'] == 'transfer_bank'): ?>
+            <div class="payment-box">
+                <h3>Instruksi Transfer</h3>
+                <p><strong>Bank Tujuan:</strong> BANK RTP (825089210187)</p>
+                <p><strong>Jumlah:</strong> Rp <?= number_format($pesanan['total'], 0, ',', '.'); ?></p>
+                <p><strong>Kode Referensi:</strong> ORDER-<?= $pesanan['id_pesanan']; ?></p>
+            </div>
+        <?php endif; ?>
 
-    <p style="margin-top: 30px; font-style: italic;">Mengalihkan ke WhatsApp dalam beberapa detik...</p>
-</div>
+        <p style="margin-top: 30px; font-style: italic;">Mengalihkan ke WhatsApp dalam beberapa detik...</p>
+    </div>
 
 
-<script>
-    // Redirect ke WhatsApp setelah 5 detik
-    setTimeout(function () {
-        window.location.href = "<?= $link_wa ?>";
-    }, 5000);
-</script>
+    <script>
+        // Redirect ke WhatsApp setelah 5 detik
+        setTimeout(function () {
+            window.location.href = "<?= $link_wa ?>";
+        }, 5000);
+    </script>
 
 
 </body>
+
 </html>

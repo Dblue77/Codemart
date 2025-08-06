@@ -3,7 +3,7 @@ session_start();
 include "../config.php";
 
 
-$id_pesanan = (int)$_GET['id'];
+$id_pesanan = (int) $_GET['id'];
 
 // Ambil data pesanan + bukti transfer
 $query_pesanan = mysqli_query($conn, "
@@ -45,28 +45,28 @@ $query_items = mysqli_query($conn, "
             background-color: var(--bg);
         }
 
-.container {
-    max-width: 960px;
-    margin: 40px auto;
-    background-color: white;
-    padding: 30px 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
+        .container {
+            max-width: 960px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 30px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
 
-.bukti-wrapper {
-    max-width: 300px;
-    overflow: hidden;
-}
+        .bukti-wrapper {
+            max-width: 300px;
+            overflow: hidden;
+        }
 
-.bukti-transfer {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 8px;
-    object-fit: contain;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
+        .bukti-transfer {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+            object-fit: contain;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
 
 
         h1 {
@@ -92,7 +92,8 @@ $query_items = mysqli_query($conn, "
             overflow-x: auto;
         }
 
-        th, td {
+        th,
+        td {
             border: 1px solid #ddd;
             padding: 12px 10px;
             text-align: left;
@@ -150,7 +151,13 @@ $query_items = mysqli_query($conn, "
         }
 
         @media (max-width: 768px) {
-            table, thead, tbody, th, td, tr {
+
+            table,
+            thead,
+            tbody,
+            th,
+            td,
+            tr {
                 display: block;
             }
 
@@ -177,11 +184,25 @@ $query_items = mysqli_query($conn, "
                 white-space: nowrap;
             }
 
-            td:nth-of-type(1)::before { content: "Produk"; }
-            td:nth-of-type(2)::before { content: "Gambar"; }
-            td:nth-of-type(3)::before { content: "Harga"; }
-            td:nth-of-type(4)::before { content: "Jumlah"; }
-            td:nth-of-type(5)::before { content: "Subtotal"; }
+            td:nth-of-type(1)::before {
+                content: "Produk";
+            }
+
+            td:nth-of-type(2)::before {
+                content: "Gambar";
+            }
+
+            td:nth-of-type(3)::before {
+                content: "Harga";
+            }
+
+            td:nth-of-type(4)::before {
+                content: "Jumlah";
+            }
+
+            td:nth-of-type(5)::before {
+                content: "Subtotal";
+            }
         }
     </style>
 </head>
@@ -203,17 +224,18 @@ $query_items = mysqli_query($conn, "
             <p><strong>Alamat Pengiriman:</strong><br><?= nl2br($pesanan['alamat']) ?></p>
         </div>
 
-<div class="info-section">
-    <h3>Bukti Transfer</h3>
-    <?php if ($pesanan['bukti_transfer']): ?>
-        <div class="bukti-wrapper">
-            <img src="../bukti_transfer/<?= $pesanan['bukti_transfer'] ?>" alt="Bukti Transfer" class="bukti-transfer">
+        <div class="info-section">
+            <h3>Bukti Transfer</h3>
+            <?php if ($pesanan['bukti_transfer']): ?>
+                <div class="bukti-wrapper">
+                    <img src="../bukti_transfer/<?= $pesanan['bukti_transfer'] ?>" alt="Bukti Transfer"
+                        class="bukti-transfer">
+                </div>
+                <p><a href="../bukti_transfer/<?= $pesanan['bukti_transfer'] ?>" download>Download Bukti</a></p>
+            <?php else: ?>
+                <p>Belum mengupload bukti transfer.</p>
+            <?php endif; ?>
         </div>
-        <p><a href="../bukti_transfer/<?= $pesanan['bukti_transfer'] ?>" download>Download Bukti</a></p>
-    <?php else: ?>
-        <p>Belum mengupload bukti transfer.</p>
-    <?php endif; ?>
-</div>
 
 
         <div class="info-section">

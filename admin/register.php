@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Register Admin</title>
@@ -90,6 +91,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <form action="proses_register.php" method="POST">
@@ -110,4 +112,5 @@
   </form>
 
 </body>
+
 </html>

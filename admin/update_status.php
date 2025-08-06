@@ -4,7 +4,7 @@ include "../config.php";
 
 
 
-$id_pesanan = (int)$_POST['id_pesanan'];
+$id_pesanan = (int) $_POST['id_pesanan'];
 $status = mysqli_real_escape_string($conn, $_POST['status']);
 
 mysqli_query($conn, "

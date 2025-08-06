@@ -70,7 +70,9 @@
             font-weight: 600;
         }
 
-        input, select, textarea {
+        input,
+        select,
+        textarea {
             width: 100%;
             padding: 10px;
             margin-bottom: 20px;
@@ -103,10 +105,11 @@
             margin-top: 20px;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
         }
 
-        th, td {
+        th,
+        td {
             padding: 12px 15px;
             border-bottom: 1px solid #eee;
             text-align: left;
@@ -144,6 +147,7 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
+
             .navbar a {
                 margin: 5px 0;
             }

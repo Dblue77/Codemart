@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 05 Agu 2025 pada 11.58
+-- Waktu pembuatan: 06 Agu 2025 pada 13.57
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.0.30
 
@@ -33,18 +33,6 @@ CREATE TABLE `admin` (
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data untuk tabel `admin`
---
-
-INSERT INTO `admin` (`id_admin`, `username`, `password`) VALUES
-(3, 'brey', '$2y$10$3dejviK2sH/2qAdBjgzuLePnIe00Aa0aeKSVwPsSxT/fxdB.VWVse'),
-(4, 'admin', '$2y$10$EochjEx60o0FB0xKkr6xPeR3xaIZpEujqiCHp7KFjaM/FHIwovgOi'),
-(7, 'admin1', '$2y$10$kqyT/sA/1rXNDDXprcKq/eReonY.2Ei6CN/OuFTfQFOuX5TX2Z4Fa'),
-(8, 'Dblue12', '$2y$10$ulhldN6pd1u1vp2n.X.IAuG7NY5ulLiNTWHPheYl8WfKHPs3EPx0i'),
-(9, 'Dblue1234', '$2y$10$eH9drwDHd0cGw6V15Ox/L.5kTOuGfZU8Vhx27RUIATst1lVo031ja'),
-(12, 'Dblue12345', '$2y$10$uDh5qRazavZm1j9dhq0c0OS6I970w9gKALtG2ObY4mMmcT5LDHdHS');
-
 -- --------------------------------------------------------
 
 --
@@ -59,10 +47,6 @@ CREATE TABLE `detail_pesanan` (
   `harga` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data untuk tabel `detail_pesanan`
---
-
 -- --------------------------------------------------------
 
 --
@@ -73,15 +57,6 @@ CREATE TABLE `kategori` (
   `id_kategori` int(11) NOT NULL,
   `nama_kategori` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `kategori`
---
-
-INSERT INTO `kategori` (`id_kategori`, `nama_kategori`) VALUES
-(8, 'baju'),
-(9, 'website'),
-(10, 'custom');
 
 -- --------------------------------------------------------
 
@@ -96,10 +71,6 @@ CREATE TABLE `keranjang` (
   `jumlah` int(11) DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `keranjang`
---
 
 -- --------------------------------------------------------
 
@@ -118,9 +89,6 @@ CREATE TABLE `pesanan` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data untuk tabel `pesanan`
---
 -- --------------------------------------------------------
 
 --
@@ -137,16 +105,6 @@ CREATE TABLE `produk` (
   `stok` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data untuk tabel `produk`
---
-
-INSERT INTO `produk` (`id_produk`, `nama_produk`, `id_kategori`, `gambar`, `harga`, `deskripsi`, `stok`) VALUES
-(33, 'baju', 8, 'WhatsApp Image 2025-08-03 at 10.12.24_b65eae48.jpg', 55000, 'BAJU CUSTOM', 1),
-(34, 'WEBSITE CUSTOM', 10, 'WhatsApp Image 2025-08-03 at 10.12.23_038678ac.jpg', 450000, 'WEBSITE CUSTOM', 0),
-(35, 'Gelas custom', 10, 'WhatsApp Image 2025-08-03 at 10.12.24_25b6c1d1.jpg', 45000, 'CUSTOM', 1),
-(36, 'PIN CUSTOM', 10, 'WhatsApp Image 2025-08-03 at 10.12.23_e43d8094.jpg', 25000, 'CUSTOM', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -162,15 +120,6 @@ CREATE TABLE `user` (
   `alamat` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `user`
---
-
-INSERT INTO `user` (`id_user`, `username`, `password`, `nama_lengkap`, `no_telepon`, `alamat`, `created_at`) VALUES
-(7, 'Dblue', '$2y$10$4tF/h5lZ8Cw9v59TuSm9Feg0hgqlAG8vb2Em8Cd2k6hhUz1Va2dSu', 'dblur', '222222', 'kating', '2025-08-03 07:34:31'),
-(8, 'Dblue1344', '$2y$10$ObQm2H.RBladW8e05tjAY.hfTCU1pvJ/i3pVBRX4d9K3CiQzJgOxS', 'dblur', '0893802020', 'KAYU TINGGI\r\n', '2025-08-04 07:20:36'),
-(9, 'Dblue77', '$2y$10$cahUf2B1w4nT9n04me0QWuBOIvdcLSTpBYUM8ezQ/4ndHz75w5Lxq', 'dblur', '0893802020', 'KAYU TINGGI', '2025-08-04 07:21:22');
 
 --
 -- Indexes for dumped tables
@@ -269,7 +218,7 @@ ALTER TABLE `produk`
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-$id_pesanan = (int)$_GET['id'];
+$id_pesanan = (int) $_GET['id'];
 
 // Ambil data pesanan
 $query_pesanan = mysqli_query($conn, "
@@ -32,18 +32,19 @@ $query_items = mysqli_query($conn, "
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>Detail Pesanan - CodeMart</title>
     <style>
         :root {
-      --primary: #004976ff;     
-      --secondary: #A2F4FA;   
-      --accent: #FDC400;      
-      --dark: #222222;        
-      --light: #FFFFFF;       
-      --text: #333333;        
-      --shadow: 0 5px 15px rgba(0, 123, 189, 0.1); 
+            --primary: #004976ff;
+            --secondary: #A2F4FA;
+            --accent: #FDC400;
+            --dark: #222222;
+            --light: #FFFFFF;
+            --text: #333333;
+            --shadow: 0 5px 15px rgba(0, 123, 189, 0.1);
         }
 
         body {
@@ -54,7 +55,8 @@ $query_items = mysqli_query($conn, "
             padding: 20px;
         }
 
-        h1, h3 {
+        h1,
+        h3 {
             color: var(--primary);
         }
 
@@ -75,7 +77,8 @@ $query_items = mysqli_query($conn, "
             box-shadow: var(--shadow);
         }
 
-        th, td {
+        th,
+        td {
             padding: 12px 15px;
             text-align: left;
             border-bottom: 1px solid #eee;
@@ -126,53 +129,55 @@ $query_items = mysqli_query($conn, "
             color: #16a085;
             font-weight: bold;
         }
-@media (max-width: 768px) {
-    table {
-        border: none;
-    }
 
-    thead {
-        display: none;
-    }
+        @media (max-width: 768px) {
+            table {
+                border: none;
+            }
 
-    tr {
-        display: block;
-        margin-bottom: 20px;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        box-shadow: var(--shadow);
-        padding: 10px;
-        background-color: #fff;
-    }
+            thead {
+                display: none;
+            }
 
-    td {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 10px;
-        border: none;
-        border-bottom: 1px solid #eee;
-    }
+            tr {
+                display: block;
+                margin-bottom: 20px;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                box-shadow: var(--shadow);
+                padding: 10px;
+                background-color: #fff;
+            }
 
-    td:last-child {
-        border-bottom: none;
-    }
+            td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px;
+                border: none;
+                border-bottom: 1px solid #eee;
+            }
 
-    td::before {
-        content: attr(data-label);
-        font-weight: bold;
-        color: var(--primary);
-        flex-basis: 40%;
-    }
+            td:last-child {
+                border-bottom: none;
+            }
 
-    td img {
-        width: 100px;
-        height: auto;
-        border-radius: 6px;
-    }
-}
+            td::before {
+                content: attr(data-label);
+                font-weight: bold;
+                color: var(--primary);
+                flex-basis: 40%;
+            }
+
+            td img {
+                width: 100px;
+                height: auto;
+                border-radius: 6px;
+            }
+        }
     </style>
 </head>
+
 <body>
 
     <h1>Detail Pesanan #<?= $pesanan['id_pesanan'] ?></h1>
@@ -209,22 +214,24 @@ $query_items = mysqli_query($conn, "
                     <th>Subtotal</th>
                 </tr>
             </thead>
-<tbody>
-    <?php while ($item = mysqli_fetch_assoc($query_items)): ?>
-        <tr>
-            <td data-label="Produk"><?= htmlspecialchars($item['nama_produk']) ?></td>
-            <td data-label="Gambar"><img src="admin/uploads/<?= $item['gambar'] ?>" alt="Produk"></td>
-            <td data-label="Harga">Rp <?= number_format($item['harga'], 0, ',', '.') ?></td>
-            <td data-label="Jumlah"><?= $item['jumlah'] ?></td>
-            <td data-label="Subtotal">Rp <?= number_format($item['harga'] * $item['jumlah'], 0, ',', '.') ?></td>
-        </tr>
-    <?php endwhile; ?>
-</tbody>
+            <tbody>
+                <?php while ($item = mysqli_fetch_assoc($query_items)): ?>
+                    <tr>
+                        <td data-label="Produk"><?= htmlspecialchars($item['nama_produk']) ?></td>
+                        <td data-label="Gambar"><img src="admin/uploads/<?= $item['gambar'] ?>" alt="Produk"></td>
+                        <td data-label="Harga">Rp <?= number_format($item['harga'], 0, ',', '.') ?></td>
+                        <td data-label="Jumlah"><?= $item['jumlah'] ?></td>
+                        <td data-label="Subtotal">Rp <?= number_format($item['harga'] * $item['jumlah'], 0, ',', '.') ?>
+                        </td>
+                    </tr>
+                <?php endwhile; ?>
+            </tbody>
 
         </table>
     </div>
 
     <a href="pesanan.php">&laquo; Kembali ke Beranda</a>
-      <?php include 'partials/footer.php'; ?>
+    <?php include 'partials/footer.php'; ?>
 </body>
+
 </html>

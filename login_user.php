@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login User - CodeMart</title>
   <style>
     :root {
@@ -22,11 +23,9 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(
-        135deg,
-        rgba(0, 73, 118, 0.9),
-        rgba(162, 244, 250, 0.9)
-      );
+      background: linear-gradient(135deg,
+          rgba(0, 73, 118, 0.9),
+          rgba(162, 244, 250, 0.9));
       display: flex;
       justify-content: center;
       align-items: center;
@@ -49,6 +48,7 @@
         opacity: 0;
         transform: translateY(20px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -148,4 +148,5 @@
     </form>
   </div>
 </body>
+
 </html>
