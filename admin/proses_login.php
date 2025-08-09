@@ -5,15 +5,16 @@ include "../config.php";
 $message = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  $username = $_POST['username'];
+  $username = mysqli_real_escape_string($conn, $_POST['username']);
+
   $password = $_POST['password'];
 
   $query = "SELECT * FROM admin WHERE username = '$username'";
   $result = mysqli_query($conn, $query);
   $admin = mysqli_fetch_assoc($result);
 
-  if ($admin && password_verify($password, $admin['password'])) {
-    session_regenerate_id(true);
+  if ($admin && password_verify(password: $password, hash: $admin['password'])) {
+    session_regenerate_id(delete_old_session: true);
 
     // Login sukses
     $_SESSION['admin_id'] = $admin['id_admin'];

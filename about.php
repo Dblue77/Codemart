@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "config.php"; // koneksi database
+include "config.php"; 
 ?>
 
 <!DOCTYPE html>
@@ -34,7 +34,9 @@ include "config.php"; // koneksi database
         }
 
         h1,
-        h2,
+        .judul {
+            color: #000509ff;
+        }
         h3 {
             color: #004080;
         }
@@ -52,7 +54,7 @@ include "config.php"; // koneksi database
 <body>
     <?php include 'partials/header.php'; ?>
     <main>
-        <h2>Selamat datang di <strong>CodeMart</strong>!</h2>
+        <h2 class="judul">Selamat datang di <strong>CodeMart</strong>!</h2>
         <p><strong>CodeMart</strong> adalah penyedia jasa digital kreatif yang berfokus pada solusi desain dan
             teknologi. Kami hadir untuk membantu Anda mewujudkan ide-ide kreatif menjadi kenyataan digital yang
             profesional dan menarik.</p>

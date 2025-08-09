@@ -1,39 +1,55 @@
 <?php
+session_start();
 include "config.php";
 
 $status = "";
-$pesan = "";
-$link = "";
+$pesan  = "";
+$link   = "";
 
+// Proses hanya kalau method POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = htmlspecialchars($_POST['username']);
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $nama_lengkap = $_POST['nama_lengkap'];
-    $no_telepon = $_POST['no_telepon'];
-    $alamat = $_POST['alamat'];
 
-    $cek = mysqli_query($conn, "SELECT * FROM user WHERE username = '$username'");
-    if (mysqli_num_rows($cek) > 0) {
+    // Cek captcha
+    if (!isset($_POST['captcha']) || $_POST['captcha'] !== $_SESSION['captcha_code']) {
         $status = "gagal";
-        $pesan = "Username <strong>$username</strong> sudah digunakan!";
+        $pesan  = "Kode captcha salah! Silakan coba lagi.";
     } else {
-        $query = "INSERT INTO user (username, password, nama_lengkap, no_telepon, alamat) 
-                  VALUES ('$username', '$password', '$nama_lengkap', '$no_telepon', '$alamat')";
-        if (mysqli_query($conn, $query)) {
-            $status = "sukses";
-            $pesan = "Registrasi berhasil!";
-            $link = "<a href='login_user.php'>Klik di sini untuk login</a>";
-        } else {
+        // Sanitasi input
+        $username     = htmlspecialchars(trim($_POST['username']));
+        $passwordHash = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        $nama_lengkap = htmlspecialchars(trim($_POST['nama_lengkap']));
+        $no_telepon   = htmlspecialchars(trim($_POST['no_telepon']));
+        $alamat       = htmlspecialchars(trim($_POST['alamat']));
+
+        // Cek username sudah ada atau belum
+        $stmt = $conn->prepare("SELECT id_user FROM user WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
             $status = "gagal";
-            $pesan = "Terjadi kesalahan saat registrasi. Coba lagi.";
+            $pesan  = "Username <strong>$username</strong> sudah digunakan!";
+        } else {
+            // Insert data user
+            $stmt = $conn->prepare("INSERT INTO user (username, password, nama_lengkap, no_telepon, alamat) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param("sssss", $username, $passwordHash, $nama_lengkap, $no_telepon, $alamat);
+
+            if ($stmt->execute()) {
+                $status = "sukses";
+                $pesan  = "Registrasi berhasil!";
+                $link   = "<a href='login_user.php'>Klik di sini untuk login</a>";
+            } else {
+                $status = "gagal";
+                $pesan  = "Terjadi kesalahan saat registrasi. Coba lagi.";
+            }
         }
+        $stmt->close();
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <title>Hasil Registrasi</title>
@@ -47,11 +63,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             --error: #e74c3c;
             --success: #27ae60;
         }
-
         * {
             box-sizing: border-box;
         }
-
         body {
             margin: 0;
             font-family: 'Segoe UI', Tahoma, sans-serif;
@@ -62,7 +76,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             height: 100vh;
             padding: 20px;
         }
-
         .message-box {
             background: var(--light);
             padding: 30px 40px;
@@ -73,19 +86,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             text-align: center;
             animation: fadeIn 0.4s ease-in-out;
         }
-
         .message-box h2 {
-            color:
-                <?php echo $status == 'sukses' ? 'var(--success)' : 'var(--error)'; ?>
-            ;
+            color: <?php echo $status == 'sukses' ? 'var(--success)' : 'var(--error)'; ?>;
             margin-bottom: 20px;
         }
-
         .message-box p {
             font-size: 16px;
             color: #333;
         }
-
         .message-box a {
             display: inline-block;
             margin-top: 20px;
@@ -96,17 +104,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             border-radius: 8px;
             transition: background 0.3s;
         }
-
         .message-box a:hover {
             background: #003355;
         }
-
         @keyframes fadeIn {
             from {
                 opacity: 0;
                 transform: scale(0.95);
             }
-
             to {
                 opacity: 1;
                 transform: scale(1);
@@ -114,17 +119,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     </style>
 </head>
-
 <body>
     <div class="message-box">
         <h2><?php echo $status == 'sukses' ? 'Berhasil!' : 'Gagal!'; ?></h2>
         <p><?php echo $pesan; ?></p>
-        <?php if ($link)
-            echo $link; ?>
+        <?php if ($link) echo $link; ?>
         <div style="margin-top: 10px;">
             <a href="register_user.php">Kembali ke Form</a>
         </div>
     </div>
 </body>
-
 </html>

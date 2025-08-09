@@ -48,7 +48,7 @@ if (isset($_POST['UPDATE'])) {
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: rgb(95, 68, 38);
+            background-color: rgba(49, 143, 238, 1);
             color: rgb(228, 214, 199);
             padding: 40px;
         }

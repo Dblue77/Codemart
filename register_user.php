@@ -116,6 +116,87 @@
         font-size: 20px;
       }
     }
+
+    .captcha-box {
+      display: flex;
+      flex-direction: column;
+      /* Susun vertikal */
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 14px;
+      border-radius: 10px;
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      max-width: 300px;
+      margin: auto;
+    }
+
+    .captcha-box img {
+      border-radius: 8px;
+      height: 60px;
+      width: auto;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .captcha-input-refresh {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .captcha-input-refresh input {
+      flex: 1;
+      height: 50px;
+      padding: 0 12px;
+      font-size: 16px;
+      color: #333;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid transparent;
+      border-radius: 8px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .captcha-input-refresh input:focus {
+      border-color: #4a90e2;
+      background: #fff;
+      box-shadow: 0 0 8px rgba(74, 144, 226, 0.3);
+    }
+
+    .refresh-captcha {
+      height: 50px;
+      width: 50px;
+      background: linear-gradient(135deg, #4a90e2, #357ABD);
+      color: white;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+
+    .refresh-captcha:hover {
+      background: linear-gradient(135deg, #5aa0ff, #3b6fd1);
+      transform: rotate(90deg);
+    }
+
+    p {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #444;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 
@@ -138,9 +219,27 @@
       <label for="alamat">Alamat:</label>
       <textarea name="alamat" id="alamat" rows="3" required></textarea>
 
+      <label>Captcha:</label>
+      <div class="captcha-box">
+        <img id="captchaImage" src="captcha.php?rand=<?php echo time(); ?>" alt="Captcha">
+
+        <div class="captcha-input-refresh">
+          <input type="text" name="captcha" placeholder="Masukkan kode" required>
+          <button type="button" id="refreshCaptcha" class="refresh-captcha" aria-label="Refresh captcha">↻</button>
+        </div>
+      </div>
+
       <button type="submit">Daftar</button>
+      <p>Sudah punya akun? <a href="login_user.php">Masuk sekarang</a></p>
     </form>
   </div>
+
+  <script>
+    document.getElementById('refreshCaptcha').addEventListener('click', function () {
+      document.getElementById('captchaImage').src = 'captcha.php?rand=' + Date.now();
+    });
+  </script>
+
 </body>
 
 </html>

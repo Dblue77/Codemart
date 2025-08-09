@@ -2,40 +2,44 @@
 include "config.php";
 session_set_cookie_params([
     'httponly' => true,
-    'secure' => true,
+    'secure' => false, 
     'samesite' => 'Strict'
 ]);
 session_start();
 
 $message = '';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Sanitasi input
-    $username = htmlspecialchars($_POST['username']);
-    $password = $_POST['password'];
-
-    // Gunakan prepared statement
-    $stmt = $conn->prepare("SELECT * FROM user WHERE username = ?");
-    $stmt->bind_param("s", $username);
-    $stmt->execute();
-
-    // Ambil hasilnya
-    $result = $stmt->get_result();
-    $user = $result->fetch_assoc();
-
-    if ($user && password_verify($password, $user['password'])) {
-        session_regenerate_id(true);
-
-        $_SESSION['user'] = $user['username'];
-        $_SESSION['user_id'] = $user['id_user'];
-        $_SESSION['nama'] = $user['nama']; // <- pindahkan ke sini (setelah $user diambil)
-        header("Location: index.php");
-        exit;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+   
+    if (!isset($_POST['captcha']) || !isset($_SESSION['captcha_code']) || trim($_POST['captcha']) !== strval($_SESSION['captcha_code'])) {
+        $message = "Captcha salah!";
     } else {
-        $message = "Login gagal! Username atau password salah.";
+        unset($_SESSION['captcha_code']);
+
+        $username = trim($_POST['username']);
+        $password = $_POST['password'];
+
+        $stmt = $conn->prepare("SELECT * FROM user WHERE username = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $user = $result->fetch_assoc();
+
+        if ($user && password_verify($password, $user['password'])) {
+            session_regenerate_id(true);
+            $_SESSION['user'] = $user['username'];
+            $_SESSION['user_id'] = $user['id_user'];
+            $_SESSION['nama'] = $user['nama'];
+            header("Location: index.php");
+            exit;
+        } else {
+            $message = "Login gagal! Username atau password salah.";
+        }
     }
 }
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="id">

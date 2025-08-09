@@ -36,25 +36,16 @@ $item_count = mysqli_num_rows($query);
   </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Variabel warna */
     :root {
       --primary: #007BBD;
-      /* Biru utama (dari monitor) */
       --secondary: #A2F4FA;
-      /* Biru muda (background kanan logo) */
       --accent: #FDC400;
-      /* Kuning emas (dari sayap) */
       --dark: #222222;
-      /* Hitam gelap (untuk teks atau border) */
       --light: #FFFFFF;
-      /* Putih (background bersih) */
       --text: #333333;
-      /* Abu tua untuk teks utama */
       --shadow: 0 5px 15px rgba(0, 123, 189, 0.1);
-      /* Bayangan lembut biru */
     }
 
-    /* Reset default */
     * {
       margin: 0;
       padding: 0;
@@ -139,25 +130,6 @@ $item_count = mysqli_num_rows($query);
       cursor: pointer;
       color: var(--dark);
       font-size: 1.5rem;
-    }
-
-    /* Background gerak section */
-    .background-image {
-      background: linear-gradient(rgba(0, 73, 118, 0.45),
-          /* primary */
-          rgba(162, 244, 250, 0.34)
-          /* secondary */
-        ),
-        url("https://smkdp2jkt.sch.id/wp-content/uploads/2025/02/SLIDER1-940x510.jpg");
-      background-size: cover;
-      background-position: center;
-      height: 80vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
     }
 
     .container-h1 {

@@ -22,25 +22,16 @@ $result = mysqli_query($conn, $query);
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Variabel warna */
     :root {
-      --primary: #007BBD;
-      /* Biru utama (dari monitor) */
+      --primary: #007BBD; 
       --secondary: #A2F4FA;
-      /* Biru muda (background kanan logo) */
       --accent: #FDC400;
-      /* Kuning emas (dari sayap) */
       --dark: #222222;
-      /* Hitam gelap (untuk teks atau border) */
       --light: #FFFFFF;
-      /* Putih (background bersih) */
       --text: #333333;
-      /* Abu tua untuk teks utama */
       --shadow: 0 5px 15px rgba(0, 123, 189, 0.1);
-      /* Bayangan lembut biru */
     }
 
-    /* Reset default */
     * {
       margin: 0;
       padding: 0;
@@ -127,13 +118,9 @@ $result = mysqli_query($conn, $query);
       font-size: 1.5rem;
     }
 
-    /* Background gerak section */
     .background-image {
       background: linear-gradient(rgba(7, 160, 255, 0.6),
-          /* primary */
-          rgba(162, 244, 250, 0.34)
-          /* secondary */
-        ),
+          rgba(162, 244, 250, 0.34)),
         url("https://smkdp2jkt.sch.id/wp-content/uploads/2025/02/SLIDER1-940x510.jpg");
       background-size: cover;
       background-position: center;
@@ -191,7 +178,6 @@ $result = mysqli_query($conn, $query);
       color: black;
     }
 
-    /* Hero section */
     .hero {
       padding: 3rem 0;
       text-align: center;
@@ -220,7 +206,6 @@ $result = mysqli_query($conn, $query);
       }
     }
 
-    /* Products section */
     .products {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -242,7 +227,7 @@ $result = mysqli_query($conn, $query);
 
     .product:hover {
       transform: translateY(-10px);
-      box-shadow: 0 15px 30px rgba(139, 69, 19, 0.2);
+      box-shadow: 0 15px 30px rgba(29, 19, 139, 0.2);
     }
 
     .product img {
@@ -278,7 +263,7 @@ $result = mysqli_query($conn, $query);
 
     .product button {
       background: var(--primary);
-      color: var(--dark);
+      color: var(--light);
       border: none;
       padding: 0.8rem;
       margin: 1rem;
@@ -307,7 +292,6 @@ $result = mysqli_query($conn, $query);
       font-weight: bold;
     }
 
-    /* Animasi */
     @keyframes fadeInDown {
       from {
         opacity: 0;
@@ -332,7 +316,6 @@ $result = mysqli_query($conn, $query);
       }
     }
 
-    /* Responsif */
     @media (max-width: 992px) {
       .products {
         grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -415,7 +398,6 @@ $result = mysqli_query($conn, $query);
     .typed-text {
       font-weight: bold;
       color: #1a08a0ff;
-      /* Warna teks abu gelap */
       text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
     }
 
@@ -539,14 +521,15 @@ $result = mysqli_query($conn, $query);
           <!-- <p>Kategori: <?php echo htmlspecialchars($row['id_kategori']); ?></p> -->
           <p>Deskripsi: <?php echo $row['deskripsi']; ?></p>
           <p class="price">Rp <?php echo number_format($row['harga'], 0, ',', '.'); ?></p>
-          <button onclick="addToCart(<?php echo $row['id_produk']; ?>)">Tambah</button>
-        </div>
-      <?php endwhile; ?>
-    <?php else: ?>
-      <p style="text-align: left;">Produk tidak ditemukan.</p>
-    <?php endif; ?>
-  </div>
-
+          <button onclick="addToCart(<?php echo $row['id_produk']; ?>)" class="btn-beli">
+            <i class="fas fa-shopping-cart"></i> Beli
+          </button>
+      </div>
+    <?php endwhile; ?>
+  <?php else: ?>
+    <p>Tidak ada produk ditemukan.</p>
+  <?php endif; ?>
+</div>
 
   <script>
 
@@ -565,9 +548,9 @@ $result = mysqli_query($conn, $query);
         typedText.textContent = currentWord.substring(0, charIndex++);
         if (charIndex > currentWord.length) {
           typing = false;
-          setTimeout(typeEffect, 1000); // pause before deleting
+          setTimeout(typeEffect, 1000);
         } else {
-          setTimeout(typeEffect, 100); // speed of typing
+          setTimeout(typeEffect, 100);
         }
       } else {
         typedText.textContent = currentWord.substring(0, charIndex--);
@@ -576,10 +559,11 @@ $result = mysqli_query($conn, $query);
           wordIndex = (wordIndex + 1) % words.length;
           setTimeout(typeEffect, 300);
         } else {
-          setTimeout(typeEffect, 50); // speed of deleting
+          setTimeout(typeEffect, 50);
         }
       }
     }
+
 
     document.addEventListener("DOMContentLoaded", typeEffect);
   </script>
@@ -606,7 +590,10 @@ $result = mysqli_query($conn, $query);
 
     window.addEventListener('DOMContentLoaded', () => {
       if (localStorage.getItem('bannerClosed') === 'true') {
-        document.getElementById('introBanner').style.display = 'none';
+        var banner = document.getElementById('introBanner');
+        if (banner) {
+          banner.style.display = 'none';
+        }
       }
     });
 

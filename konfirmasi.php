@@ -22,11 +22,11 @@ if (!$pesanan) {
     die("Pesanan tidak ditemukan.");
 }
 
-// Ambil nama user dari session (tidak perlu query ulang)
+// Ambil nama user dari session
 $nama_user = $_SESSION['nama_lengkap'] ?? 'User';
 
 // Format pesan WhatsApp
-$no_wa_admin = '6285210720275'; // ← ganti dengan nomor admin WA (format 62)
+$no_wa_admin = '6281212643792'; // 
 $pesan = "Halo, CS CodeMart, saya sudah melakukan pemesanan dengan detail berikut:
 
 No. Order : {$pesanan['id_pesanan']}

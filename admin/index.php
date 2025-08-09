@@ -13,7 +13,8 @@ $resultKategori = $conn->query($queryGetKategori);
 
 // Proses tambah produk
 if (isset($_POST['submit'])) {
-    $nama_produk = $_POST['nama_produk'];
+    $nama_produk = mysqli_real_escape_string($conn, $_POST['nama_produk']);
+
     $id_kategori = $_POST['id_kategori'];
     $harga = $_POST['harga'];
     $deskripsi = $_POST['deskripsi'];
@@ -22,6 +23,17 @@ if (isset($_POST['submit'])) {
     $gambar = $_FILES['gambar']['name'];
     $tmp_name = $_FILES['gambar']['tmp_name'];
     $upload_dir = "uploads/";
+
+    $allowed_ext = ['jpg', 'jpeg', 'png', 'webp'];
+    $ext = strtolower(pathinfo($gambar, PATHINFO_EXTENSION));
+
+    if (in_array($ext, $allowed_ext) && $_FILES['gambar']['size'] < 2 * 1024 * 1024) {
+        move_uploaded_file($tmp_name, $gambar_path);
+        // lanjut insert ke database
+    } else {
+        echo "Gambar tidak valid atau terlalu besar (maks 2MB)";
+    }
+
 
     if (!file_exists($upload_dir))
         mkdir($upload_dir, 0777, true);
@@ -426,6 +438,7 @@ while ($row = mysqli_fetch_assoc($dataPenjualan)) {
         <h2 class="logo">CodeMart Admin</h2>
         <a href="index.php" class="active">Dashboard</a>
         <a href="kategori.php">Kategori</a>
+        <a href="ganti_password.php">Ganti Password</a>
         <a href="logout.php">Logout</a>
     </div>
 
@@ -527,7 +540,7 @@ while ($row = mysqli_fetch_assoc($dataPenjualan)) {
                     ?>
                     <tr>
                         <td><?= $no++ ?></td>
-                        <td><?= $row['nama_produk'] ?></td>
+                        <td><?= htmlspecialchars($row['nama_produk']) ?></td>
                         <td><?= $row['nama_kategori'] ?></td>
                         <td><img src="uploads/<?= $row['gambar'] ?>" width="50"></td>
                         <td>Rp <?= number_format($row['harga'], 0, ',', '.') ?></td>
@@ -675,7 +688,6 @@ while ($row = mysqli_fetch_assoc($dataPenjualan)) {
             }
         });
     </script>
-
 </body>
 
 </html>

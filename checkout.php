@@ -25,7 +25,7 @@ $total = 0;
 $items = [];
 while ($row = mysqli_fetch_assoc($cart_query)) {
     $total += $row['harga'] * $row['jumlah'];
-    $items[] = $row;
+    $items[] = $row;    
 }
 ?>
 <!DOCTYPE html>

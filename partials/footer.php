@@ -1,11 +1,13 @@
 <footer class="footer">
   <p>&copy; 2025 CodeMart. All rights reserved.
   <p>Rekayasa Perangkat Lunak - SMK Dinamika Pembangunan 2 Jakarta</p>
-  </p>
+  </p>  
 
 
   <div class="social-icons">
-    <a href="+6281212643792"><img src="https://img.icons8.com/ios-filled/50/000000/whatsapp.png" alt="WhatsApp"></a>
+    <a href="https://wa.me/6281212643792" target="_blank">
+      <img src="https://img.icons8.com/ios-filled/50/000000/whatsapp.png" alt="WhatsApp">
+    </a>
     <a href="https://www.instagram.com/codemarketdp2/"><img
         src="https://img.icons8.com/ios-filled/50/000000/instagram-new.png" alt="Instagram"></a>
   </div>
