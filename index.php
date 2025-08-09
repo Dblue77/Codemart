@@ -19,11 +19,12 @@ $result = mysqli_query($conn, $query);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CodeMart</title>
+  <link rel="icon" type="image/png" href="assets/logoo.png">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --primary: #007BBD; 
+      --primary: #007BBD;
       --secondary: #A2F4FA;
       --accent: #FDC400;
       --dark: #222222;
@@ -494,6 +495,7 @@ $result = mysqli_query($conn, $query);
 
 <body>
   <?php include 'partials/header.php'; ?>
+  
   <!-- Background gerak section -->
   <div class="background-image">
     <div class="container-h1">
@@ -524,12 +526,12 @@ $result = mysqli_query($conn, $query);
           <button onclick="addToCart(<?php echo $row['id_produk']; ?>)" class="btn-beli">
             <i class="fas fa-shopping-cart"></i> Beli
           </button>
-      </div>
-    <?php endwhile; ?>
-  <?php else: ?>
-    <p>Tidak ada produk ditemukan.</p>
-  <?php endif; ?>
-</div>
+        </div>
+      <?php endwhile; ?>
+    <?php else: ?>
+      <p>Tidak ada produk ditemukan.</p>
+    <?php endif; ?>
+  </div>
 
   <script>
 

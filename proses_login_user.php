@@ -2,7 +2,7 @@
 include "config.php";
 session_set_cookie_params([
     'httponly' => true,
-    'secure' => false, 
+    'secure' => false,
     'samesite' => 'Strict'
 ]);
 session_start();
@@ -10,7 +10,7 @@ session_start();
 $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-   
+
     if (!isset($_POST['captcha']) || !isset($_SESSION['captcha_code']) || trim($_POST['captcha']) !== strval($_SESSION['captcha_code'])) {
         $message = "Captcha salah!";
     } else {
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         body {
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #4a90e2, #a3c8f0);
+            background: linear-gradient(135deg, rgba(0, 73, 118, 0.9), rgba(162, 244, 250, 0.9));
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             height: 100vh;
             display: flex;
@@ -93,11 +93,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         a:hover {
             background-color: #357ABD;
         }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .logo img {
+            height: 100px;
+        }
     </style>
 </head>
 
 <body>
     <div class="message-box">
+        <div class="logo">
+            <img src="assets/logorpldp.png" alt="CodeMart Logo">
+        </div>
         <h2>Oops!</h2>
         <p><?= $message ?></p>
         <a href="login_user.php">&laquo; Kembali ke Login</a>

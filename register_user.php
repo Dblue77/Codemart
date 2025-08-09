@@ -7,225 +7,247 @@
   <title>Registrasi User - CodeMart</title>
   <style>
     :root {
-      --primary: #004976;
-      --secondary: #A2F4FA;
-      --accent: #FDC400;
-      --dark: #222;
-      --light: #fff;
-      --text: #333;
-      --shadow: 0 10px 25px rgba(0, 73, 118, 0.15);
+      --primary: #0d6efd;
+      --primary-hover: #0b5ed7;
+      --bg: #f5f5f5;
+      --light: #ffffff;
+      --text: #333333;
+      --accent: #ffc107;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     }
 
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, rgba(0, 73, 118, 0.9), rgba(162, 244, 250, 0.9));
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 20px;
     }
 
-    .register-container {
+    .login-box {
       background: var(--light);
-      padding: 40px 30px;
-      border-radius: 16px;
+      padding: 35px 30px;
+      border-radius: 10px;
       box-shadow: var(--shadow);
       width: 100%;
-      max-width: 500px;
-      animation: fadeIn 0.5s ease;
+      max-width: 380px;
     }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
+    .logo {
+      text-align: center;
+      margin-bottom: 10px;
+    }
 
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .logo img {
+      height: 100px;
     }
 
     h2 {
       text-align: center;
-      color: var(--primary);
-      margin-bottom: 30px;
-      font-size: 24px;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 25px;
     }
 
-    label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: 500;
-      color: var(--dark);
-    }
-
-    input[type="text"],
-    input[type="password"],
-    input[type="number"],
-    textarea {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 20px;
+    .input-group {
+      display: flex;
+      align-items: center;
       border: 1px solid #ccc;
-      border-radius: 10px;
-      font-size: 15px;
-      transition: border-color 0.3s;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      background: #fff;
+      overflow: hidden;
     }
 
-    input:focus,
-    textarea:focus {
-      outline: none;
-      border-color: var(--primary);
-    }
-
-    textarea {
-      resize: vertical;
-    }
-
-    button {
-      width: 100%;
-      background-color: var(--primary);
-      color: var(--light);
-      padding: 14px;
-      border: none;
-      border-radius: 10px;
+    .input-group i {
+      background: #f1f1f1;
+      padding: 10px;
       font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s ease;
+      color: #666;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
     }
 
-    button:hover {
-      background-color: #003355;
+    .input-group input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      outline: none;
+      font-size: 14px;
     }
 
-    @media (max-width: 480px) {
-      .register-container {
-        padding: 30px 20px;
-      }
+    .input-group input:focus {
+      background: #fff;
+    }
 
-      h2 {
-        font-size: 20px;
-      }
+    /* Captcha */
+    .captcha-container {
+      margin-bottom: 15px;
     }
 
     .captcha-box {
       display: flex;
-      flex-direction: column;
-      /* Susun vertikal */
       align-items: center;
       gap: 10px;
-      background: rgba(255, 255, 255, 0.15);
-      padding: 14px;
-      border-radius: 10px;
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      max-width: 300px;
-      margin: auto;
+      margin-bottom: 8px;
+      padding: 8px;
+      border-radius: 6px;
     }
 
     .captcha-box img {
-      border-radius: 8px;
-      height: 60px;
-      width: auto;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-
-    .captcha-input-refresh {
-      display: flex;
-      gap: 10px;
-      width: 100%;
-    }
-
-    .captcha-input-refresh input {
-      flex: 1;
       height: 50px;
-      padding: 0 12px;
-      font-size: 16px;
-      color: #333;
-      background: rgba(255, 255, 255, 0.8);
-      border: 1px solid transparent;
-      border-radius: 8px;
-      outline: none;
-      transition: all 0.3s ease;
-    }
-
-    .captcha-input-refresh input:focus {
-      border-color: #4a90e2;
-      background: #fff;
-      box-shadow: 0 0 8px rgba(74, 144, 226, 0.3);
+      border-radius: 4px;
+      border: 1px solid #ddd;
     }
 
     .refresh-captcha {
-      height: 50px;
-      width: 50px;
-      background: linear-gradient(135deg, #4a90e2, #357ABD);
-      color: white;
+      background: var(--accent);
       border: none;
-      font-size: 18px;
+      border-radius: 6px;
       cursor: pointer;
-      border-radius: 8px;
-      transition: transform 0.2s ease, background 0.3s ease;
+      width: 40px;
+      height: 40px;
+      font-size: 18px;
+      color: #fff;
     }
 
     .refresh-captcha:hover {
-      background: linear-gradient(135deg, #5aa0ff, #3b6fd1);
-      transform: rotate(90deg);
+      background: #e0a800;
+    }
+
+    /* Button */
+    button[type="submit"] {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      background: var(--primary);
+      color: white;
+      font-size: 15px;
+      font-weight: 500;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.2s;
+    }
+
+    button[type="submit"]:hover {
+      background: var(--primary-hover);
     }
 
     p {
       text-align: center;
-      margin-top: 20px;
-      font-size: 14px;
-      color: #444;
+      font-size: 13px;
+      color: #555;
+      margin-top: 15px;
     }
 
     a {
       color: var(--primary);
       text-decoration: none;
-      font-weight: bold;
     }
 
     a:hover {
       text-decoration: underline;
     }
+
+    .password-group {
+      position: relative;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      cursor: pointer;
+      color: #888;
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+    }
+
+    .toggle-password:hover {
+      color: var(--primary);
+    }
+
+    .input-group.textarea-group {
+      display: flex;
+      align-items: flex-start;
+      position: relative;
+    }
+
+    .input-group.textarea-group i {
+      position: absolute;
+      top: 12px;
+      left: 10px;
+      color: #888;
+    }
+
+    .input-group.textarea-group textarea {
+      width: 100%;
+      min-height: 60px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      resize: vertical;
+      font-size: 14px;
+      font-family: inherit;
+    }
   </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
-  <div class="register-container">
-    <h2>Registrasi Pengguna</h2>
+  <div class="login-box">
+    <div class="logo">
+      <img src="assets/logorpldp.png" alt="CodeMart Logo">
+    </div>
+    <h2>Daftar Akun Anda</h2>
     <form action="proses_register_user.php" method="POST">
-      <label for="username">Username:</label>
-      <input type="text" name="username" id="username" required />
 
-      <label for="password">Password:</label>
-      <input type="password" name="password" id="password" required />
+      <div class="input-group">
+        <i class="fa fa-user-circle"></i>
+        <input type="text" name="username" placeholder="Username" required>
+      </div>
 
-      <label for="nama_lengkap">Nama Lengkap:</label>
-      <input type="text" name="nama_lengkap" id="nama_lengkap" required />
+      <div class="input-group password-group">
+        <i class="fas fa-lock"></i>
+        <input type="password" id="password" name="password" placeholder="Masukkan password" required>
+        <span class="toggle-password"><i class="fas fa-eye-slash"></i></span>
+      </div>
 
-      <label for="no_telepon">No Telepon:</label>
-      <input type="number" name="no_telepon" id="no_telepon" required />
+      <div class="input-group">
+        <i class="fa fa-user"></i>
+        <input type="text" name="nama_lengkap" placeholder="Nama Lengkap" required>
+      </div>
 
-      <label for="alamat">Alamat:</label>
-      <textarea name="alamat" id="alamat" rows="3" required></textarea>
+      <div class="input-group">
+        <i class="fas fa-phone"></i>
+        <input type="number" name="no_telepon" id="no_telepon" placeholder="Masukkan no telepon" required />
+      </div>
 
-      <label>Captcha:</label>
-      <div class="captcha-box">
-        <img id="captchaImage" src="captcha.php?rand=<?php echo time(); ?>" alt="Captcha">
+      <div class="input-group textarea-group">
+        <textarea name="alamat" placeholder="Masukkan alamat lengkap" required></textarea>
+      </div>
 
-        <div class="captcha-input-refresh">
-          <input type="text" name="captcha" placeholder="Masukkan kode" required>
-          <button type="button" id="refreshCaptcha" class="refresh-captcha" aria-label="Refresh captcha">↻</button>
+      <div class="captcha-container">
+        <label style="font-size:14px; font-weight:500; color:#333; margin-bottom:5px; display:block;">
+          <i class="fas fa-shield-alt"></i> Verifikasi Captcha
+        </label>
+        <div class="captcha-box">
+          <img id="captchaImage" src="captcha.php?rand=<?php echo time(); ?>" alt="Captcha">
+          <button type="button" id="refreshCaptcha" class="refresh-captcha"><i class="fas fa-sync-alt"></i></button>
+        </div>
+        <div class="input-group">
+          <i class="fas fa-key"></i>
+          <input type="text" name="captcha" placeholder="Masukkan kode captcha" required>
         </div>
       </div>
 
@@ -237,6 +259,20 @@
   <script>
     document.getElementById('refreshCaptcha').addEventListener('click', function () {
       document.getElementById('captchaImage').src = 'captcha.php?rand=' + Date.now();
+    });
+
+    document.querySelector('.toggle-password').addEventListener('click', function () {
+      const passwordInput = document.getElementById('password');
+      const icon = this.querySelector('i');
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+      } else {
+        passwordInput.type = 'password';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+      }
     });
   </script>
 
